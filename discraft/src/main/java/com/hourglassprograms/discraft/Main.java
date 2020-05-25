@@ -101,49 +101,44 @@ public class Main extends JavaPlugin {
             }
         }
         if (label.equalsIgnoreCase("discraft")) {
-            getLogger().info("Discraft command ran: " + label + " " + cmd.getLabel());
             if (args.length == 0) {
                 // Display help for discraft
 
                 return false;
             } else if (args[0].equalsIgnoreCase("port")) {
+                String message = ChatColor.BOLD + "The Port that discraft is running on is: " + ChatColor.RED
+                        + this.getConfig().getInt("port");
                 if (sender instanceof Player) { // Sender is player
                     Player player = (Player) sender;
                     if (player.hasPermission("port.get")) {
-                        player.sendMessage(ChatColor.BOLD + "The Port that discraft is running on is: " + ChatColor.RED
-                                + this.getConfig().getInt("port"));
+                        player.sendMessage(message);
 
                     } else {
                         player.sendMessage(ChatColor.BOLD + "You do not have the permission to do this");
                     }
 
-                    // player.sendMessage(ChatColor.translatealternateColorcodes("&","&2Hello
-                    // &3World"));
                     return true;
                 } else {
                     // Console
-                    sender.sendMessage(ChatColor.BOLD + "The Port that discraft is running on is: " + ChatColor.RED
-                            + this.getConfig().getInt("port"));
+                    sender.sendMessage(message);
                     return true;
                 }
             } else if (args[0].equalsIgnoreCase("auth")) {
+                String message = ChatColor.BOLD + "The Authkey for this server for Discraft is: " + ChatColor.RED
+                        + this.getConfig().getString("authkey");
                 if (sender instanceof Player) { // Sender is player
                     Player player = (Player) sender;
                     if (player.hasPermission("auth.get")) {
-                        player.sendMessage(ChatColor.BOLD + "The authkey for this server for Discraft is: "
-                                + ChatColor.RED + this.getConfig().getString("authkey"));
+                        player.sendMessage(message);
 
                     } else {
                         player.sendMessage(ChatColor.BOLD + "You do not have the permission to do this");
                     }
 
-                    // player.sendMessage(ChatColor.translatealternateColorcodes("&","&2Hello
-                    // &3World"));
                     return true;
                 } else {
                     // Console
-                    sender.sendMessage(ChatColor.BOLD + "The authkey for this server for Discraft is: " + ChatColor.RED
-                            + this.getConfig().getString("authkey"));
+                    sender.sendMessage(message);
                     return true;
                 }
             }
