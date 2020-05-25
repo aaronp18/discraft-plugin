@@ -40,7 +40,7 @@ public class Main extends JavaPlugin {
 
     public void loadConfig() {
         FileConfiguration config = this.getConfig();
-        config.addDefault("port", 8999);
+        config.addDefault("port", 9000);
         config.addDefault("authkey", "");
         config.options().copyDefaults(true);
         saveConfig();
@@ -97,6 +97,27 @@ public class Main extends JavaPlugin {
             } else {
                 // Console
                 sender.sendMessage(ChatColor.BOLD + "Hey Console!");
+                return true;
+            }
+        }
+        if (label.equalsIgnoreCase("discraft port")) {
+            if (sender instanceof Player) { // Sender is player
+                Player player = (Player) sender;
+                if (player.hasPermission("port.get")) {
+                    player.sendMessage(ChatColor.BOLD + "The Port that discraft is running on is: " + ChatColor.RED
+                            + this.getConfig().getInt("port"));
+
+                } else {
+                    player.sendMessage(ChatColor.BOLD + "You do not have the permission to do this");
+                }
+
+                // player.sendMessage(ChatColor.translatealternateColorcodes("&","&2Hello
+                // &3World"));
+                return true;
+            } else {
+                // Console
+                sender.sendMessage(ChatColor.BOLD + "The Port that discraft is running on is: " + ChatColor.RED
+                        + this.getConfig().getInt("port"));
                 return true;
             }
         }
