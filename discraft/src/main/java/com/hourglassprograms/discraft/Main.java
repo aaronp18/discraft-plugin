@@ -16,7 +16,7 @@ public class Main extends JavaPlugin {
         // Reloads
         // Plugin reloads
 
-        Blade.of().get("/", ctx -> ctx.text("Hello Blade")).start();
+        Blade.of().get("/", ctx -> ctx.text("Hello Blade, nice to see you :P")).start();
 
     }
 
