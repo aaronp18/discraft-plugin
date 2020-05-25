@@ -9,6 +9,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -25,6 +26,7 @@ public class Main extends JavaPlugin {
         // Reloads
         // Plugin reloads
         getLogger().info("DisCraft has loaded");
+        loadConfig();
         loadExpress();
     }
 
@@ -33,11 +35,21 @@ public class Main extends JavaPlugin {
         // Shutdown
         // Reloads
         // Plugin reloads
+        this.saveDefaultConfig();
+    }
+
+    public void loadConfig() {
+        FileConfiguration config = this.getConfig();
+        config.addDefault("port", 8999);
+        config.addDefault("authkey", "");
+        config.options().copyDefaults(true);
+        saveConfig();
     }
 
     public void loadExpress() {
         // ? Gets port from config
-        int port = 9000;
+        FileConfiguration config = this.getConfig();
+        int port = config.getInt("port");
         Express app = new Express() {
             {
                 // Define Root Greeting
