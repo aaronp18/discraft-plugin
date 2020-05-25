@@ -1,6 +1,8 @@
 package com.hourglassprograms.discraft;
 
-import com.blade.Blade;
+import java.util.function.Function;
+
+import javax.sound.sampled.Port;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -8,7 +10,12 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import express.Express;
+import express.ExpressListener;
+
 public class Main extends JavaPlugin {
+    // Use to get jar with all dependencies
+    // mvn clean compile assembly:single
 
     @Override
     public void onEnable() {
@@ -16,8 +23,7 @@ public class Main extends JavaPlugin {
         // Reloads
         // Plugin reloads
 
-        Blade.of().get("/", ctx -> ctx.text("Hello Blade, nice to see you :P")).start();
-
+        loadExpress();
     }
 
     @Override
@@ -26,6 +32,22 @@ public class Main extends JavaPlugin {
         // Reloads
         // Plugin reloads
     }
+
+    public void loadExpress() {
+        Express app = new Express() {
+            {
+                // Define Root Greeting
+                get("/", (req, res) -> res.send("Welcome to DisCraft"));
+                // get("/run/:command/:hash", (req, res) -> res.send(RunCommand(req)));
+
+                // Start server
+                listen(9000);
+            }
+        };
+
+    }
+
+    public String RunCommand()
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (label.equalsIgnoreCase("hello")) {
