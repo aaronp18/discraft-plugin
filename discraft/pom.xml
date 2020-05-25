@@ -17,6 +17,10 @@
         <id>spigot-repo</id>
         <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
     </repository>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
   </repositories>
 
   <properties>
@@ -47,6 +51,13 @@
             <artifactId>bukkit</artifactId>
             <version>1.15.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
+    </dependency>
+
+    <!-- Express Java Dependency -->
+    <dependency>
+      <groupId>com.github.Simonwep</groupId>
+      <artifactId>java-express</artifactId>
+      <version>0.1.1</version>
     </dependency>
   </dependencies>
 
