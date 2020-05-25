@@ -43,7 +43,7 @@ public class Main extends JavaPlugin {
                 // Define Root Greeting
                 get("/", (req, res) -> res.send("Welcome to DisCraft"));
                 get("/run/:command/:hash", (req, res) -> {
-                    runCommand();
+                    runCommand(req.getParam("command"));
                     res.send(req.getParam("command") + " ran successfully");
                 });
 
@@ -55,12 +55,14 @@ public class Main extends JavaPlugin {
 
     }
 
-    public void runCommand() {
-        Bukkit.getScheduler().runTaskAsynchronously(this, new Runnable() {
+    public void runCommand(String cmd) {
+
+        Bukkit.getScheduler().runTask(this, new Runnable() {
             @Override
             public void run() {
-                getLogger().info("Discraft command run...");
-                Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "say hello");
+
+                Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), cmd);
+                getLogger().info("Ran: " + cmd);
             }
         });
 
