@@ -6,6 +6,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import express.Express;
+
 public class Main extends JavaPlugin {
 
     @Override
@@ -13,6 +15,7 @@ public class Main extends JavaPlugin {
         // Startup
         // Reloads
         // Plugin reloads
+        LoadExpress();
 
     }
 
@@ -23,7 +26,13 @@ public class Main extends JavaPlugin {
         // Plugin reloads
     }
 
-    // /hello --> "Welcome!"
+    public void LoadExpress() {
+        Express app = new Express();
+
+        app.get("/", (req, res) -> {
+            res.send("Hello World");
+        }).listen(); // Will listen on port 80 which is set as default
+    }
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (label.equalsIgnoreCase("hello")) {
