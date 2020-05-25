@@ -105,7 +105,7 @@ public class Main extends JavaPlugin {
             if (args.length == 0) {
                 // Display help for discraft
 
-                return true;
+                return false;
             } else if (args[0].equalsIgnoreCase("port")) {
                 if (sender instanceof Player) { // Sender is player
                     Player player = (Player) sender;

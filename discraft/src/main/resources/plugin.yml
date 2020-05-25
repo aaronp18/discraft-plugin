@@ -7,6 +7,7 @@ commands:
   hello:
     description: Test hello command
   discraft:
+    description: "Use this to get the port or auth key"
     permission: discraft.use
     permission-message: You do not have permission to use this command.
     usage: "Usage: /<command> (port:auth)"
