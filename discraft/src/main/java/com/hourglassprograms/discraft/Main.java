@@ -4,9 +4,11 @@ import java.util.function.Function;
 
 import javax.sound.sampled.Port;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -22,7 +24,7 @@ public class Main extends JavaPlugin {
         // Startup
         // Reloads
         // Plugin reloads
-
+        getLogger().info("DisCraft has loaded");
         loadExpress();
     }
 
@@ -34,20 +36,35 @@ public class Main extends JavaPlugin {
     }
 
     public void loadExpress() {
+        // ? Gets port from config
+        int port = 9000;
         Express app = new Express() {
             {
                 // Define Root Greeting
                 get("/", (req, res) -> res.send("Welcome to DisCraft"));
-                // get("/run/:command/:hash", (req, res) -> res.send(RunCommand(req)));
+                get("/run/:command/:hash", (req, res) -> {
+                    runCommand();
+                    res.send(req.getParam("command") + " ran successfully");
+                });
 
                 // Start server
-                listen(9000);
+                listen(port);
             }
         };
+        getLogger().info("Discraft server running on port: " + port);
 
     }
 
-    public String RunCommand()
+    public void runCommand() {
+        Bukkit.getScheduler().runTaskAsynchronously(this, new Runnable() {
+            @Override
+            public void run() {
+                getLogger().info("Discraft command run...");
+                Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "say hello");
+            }
+        });
+
+    }
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (label.equalsIgnoreCase("hello")) {
