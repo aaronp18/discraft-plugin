@@ -1,12 +1,12 @@
 package com.hourglassprograms.discraft;
 
+import com.blade.Blade;
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import express.Express;
 
 public class Main extends JavaPlugin {
 
@@ -15,7 +15,8 @@ public class Main extends JavaPlugin {
         // Startup
         // Reloads
         // Plugin reloads
-        LoadExpress();
+
+        Blade.of().get("/", ctx -> ctx.text("Hello Blade")).start();
 
     }
 
@@ -24,14 +25,6 @@ public class Main extends JavaPlugin {
         // Shutdown
         // Reloads
         // Plugin reloads
-    }
-
-    public void LoadExpress() {
-        Express app = new Express();
-
-        app.get("/", (req, res) -> {
-            res.send("Hello World");
-        }).listen(); // Will listen on port 80 which is set as default
     }
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
