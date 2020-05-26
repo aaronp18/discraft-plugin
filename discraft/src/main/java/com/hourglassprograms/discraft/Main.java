@@ -74,7 +74,7 @@ public class Main extends JavaPlugin {
                 get("/", (req, res) -> res.send("Welcome to DisCraft"));
                 get("/run/:command/:hash", (req, res) -> {
                     if (checkHash(req.getParam("command"), req.getParam("hash"))) {
-                        runCommand(req.getParam("command"));
+                        runCommand(req.getParam("command"), false);
                         res.send("200 - " + req.getParam("command") + " was ran successfully");
                     } else {
                         res.send("401 - Hash  didnt match. Perhaps the auth key is incorrect?");
@@ -90,14 +90,17 @@ public class Main extends JavaPlugin {
 
     }
 
-    public void runCommand(String cmd) {
+    public void runCommand(String cmd, boolean silent) {
 
         Bukkit.getScheduler().runTask(this, new Runnable() {
             @Override
             public void run() {
 
                 Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), cmd);
-                getLogger().info("Ran: " + cmd);
+                if (!silent) {
+                    getLogger().info("Ran: " + cmd);
+                }
+
             }
         });
 
@@ -238,9 +241,9 @@ public class Main extends JavaPlugin {
 
             if (content.toString().contains("200")) {
                 // Then success
-                runCommand("say Discraft has successfully been linked");
+                runCommand("say Discraft has successfully been linked", true);
             } else {
-                runCommand("An error has occured...");
+                runCommand("say An error has occured...", true);
                 getLogger().info("Error: " + (content.toString()));
             }
         } finally {
