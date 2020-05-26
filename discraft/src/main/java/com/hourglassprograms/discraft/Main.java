@@ -33,8 +33,13 @@ public class Main extends JavaPlugin {
         loadConfig();
         loadExpress();
 
-        getLogger().info("Linking to Discraft server...");
-        LinkDiscraft();
+        if (this.getConfig().getString("authkey").equals("")) {
+            getLogger().info(
+                    "The Authkey has not been set yet. Simply use d!auth in the discord to get the authkey and place that in the config.yml");
+        } else {
+            getLogger().info("Linking to Discraft server...");
+            LinkDiscraft();
+        }
 
     }
 
@@ -154,8 +159,13 @@ public class Main extends JavaPlugin {
                     return true;
                 }
             } else if (args[0].equalsIgnoreCase("auth")) {
+
                 String message = ChatColor.BOLD + "The Authkey for this server for Discraft is: " + ChatColor.RED
                         + this.getConfig().getString("authkey");
+                if (this.getConfig().getString("authkey").equals("")) {
+                    message = ChatColor.BOLD
+                            + "The authkey has not been set yet. Simply use d!auth in the discord to get the authkey and place that in the config.yml";
+                }
                 if (sender instanceof Player) { // Sender is player
                     Player player = (Player) sender;
                     if (player.hasPermission("auth.get")) {
@@ -200,6 +210,11 @@ public class Main extends JavaPlugin {
     public boolean LinkDiscraft() {
         try {
             String authkey = getConfig().getString("authkey");
+            if (getConfig().getString("authkey").equals("")) {
+                getLogger().info(
+                        "The Authkey has not been set yet. Simply use d!auth in the discord to get the authkey and place that in the config.yml");
+                return false;
+            }
             String ip = Bukkit.getServer().getIp();
             if (ip.equals("")) {
                 // IP is empty, so must be localhost
