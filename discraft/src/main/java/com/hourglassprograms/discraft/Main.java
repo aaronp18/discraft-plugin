@@ -1,8 +1,6 @@
 package com.hourglassprograms.discraft;
 
-import java.util.function.Function;
 
-import javax.sound.sampled.Port;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -55,9 +53,15 @@ public class Main extends JavaPlugin {
                 // Define Root Greeting
                 get("/", (req, res) -> res.send("Welcome to DisCraft"));
                 get("/run/:command/:hash", (req, res) -> {
-                    runCommand(req.getParam("command"));
-                    res.send(req.getParam("command") + " ran successfully");
+                    if(checkHash(req.getParam("command"), req.getParam("hash"))){
+                        runCommand(req.getParam("command"));
+                        res.send("200 - " + req.getParam("command") + " was ran successfully");
+                    }
+                    else {
+                        res.send("401 - Hash was wrong. Perhaps the auth key is incorrect?");
+                    }
                 });
+                // get("/*", (req, res) -> res.send("404 - Wrong address"));
 
                 // Start server
                 listen(port);
@@ -78,6 +82,18 @@ public class Main extends JavaPlugin {
             }
         });
 
+    }
+    public boolean checkHash(String command, String hash) {
+        // String authkey = getConfig().getString("authkey");
+        // String message = command + authkey;
+        // getLogger().info("Message: " + message);
+        // byte[] bytesOfMessage = message.getBytes("UTF-8");
+
+        // MessageDigest md = MessageDigest.getInstance("MD5");
+        // byte[] thedigest = md.digest(bytesOfMessage);
+        // getLogger().info(thedigest.toString());
+
+        return true;
     }
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
