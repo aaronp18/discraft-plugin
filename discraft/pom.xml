@@ -6,7 +6,7 @@
 
   <groupId>com.hourglassprograms.discraft</groupId>
   <artifactId>discraft</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
 
   <name>discraft</name>
   <!-- FIXME change it to the project's website -->
@@ -52,8 +52,12 @@
       <artifactId>java-express</artifactId>
       <version>0.1.1</version>
     </dependency>
-    <!-- Blade Server -->
-    
+    <!-- Apahce HTTP -->
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>4.3.6</version>
+    </dependency>
   </dependencies>
 
   <build>

@@ -1,10 +1,23 @@
 package com.hourglassprograms.discraft;
 
 import java.security.MessageDigest;
+import java.io.IOException;
 import java.math.BigInteger;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.entity.AbstractHttpEntity;
+import org.apache.http.message.BasicNameValuePair;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -183,9 +196,49 @@ public class Main extends JavaPlugin {
                     sender.sendMessage(message);
                     return true;
                 }
+            } else if (args[0].equalsIgnoreCase("link")) {
+                String message = ChatColor.BOLD + "Linking to Discraft server...";
+                try {
+                    LinkDiscraft();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                if (sender instanceof Player) { // Sender is player
+                    Player player = (Player) sender;
+                    if (player.hasPermission("link.use")) {
+                        player.sendMessage(message);
+
+                    } else {
+                        player.sendMessage(ChatColor.BOLD + "You do not have the permission to do this");
+                    }
+
+                    return true;
+                } else {
+                    // Console
+                    sender.sendMessage(message);
+                    return true;
+                }
             }
 
         }
         return false;
+    }
+
+    public boolean LinkDiscraft() throws ClientProtocolException, IOException {
+        HttpClient httpclient = HttpClients.createDefault();
+        HttpPost httppost = new HttpPost("http://192.168.0.23:5000/link");
+
+        // Request parameters and other properties.
+        List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+        params.add(new BasicNameValuePair("authkey", getConfig().getString("authkey")));
+
+        httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+
+        // Execute and get the response.
+        HttpResponse response = httpclient.execute(httppost);
+        HttpEntity entity = response.getEntity();
+
+        return true;
     }
 }
