@@ -10,19 +10,7 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.entity.AbstractHttpEntity;
-import org.apache.http.message.BasicNameValuePair;
+;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -46,6 +34,13 @@ public class Main extends JavaPlugin {
         getLogger().info("DisCraft has loaded");
         loadConfig();
         loadExpress();
+        try {
+            getLogger().info("Linking to Discraft server...");
+            LinkDiscraft();
+        } catch (IOException e) {
+            // Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     @Override
