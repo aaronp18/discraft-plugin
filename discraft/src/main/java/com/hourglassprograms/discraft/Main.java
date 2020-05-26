@@ -235,7 +235,7 @@ public class Main extends JavaPlugin {
                     getLogger().info("Error: " + (content.toString()));
                 }
             } catch (Exception err) {
-                runCommand("say An error has occured... ", true);
+                runCommand("say An error has occured: " + err.toString(), true);
                 getLogger().info("Error: " + (err.toString()));
 
             } finally {
@@ -244,7 +244,7 @@ public class Main extends JavaPlugin {
                 return true;
             }
         } catch (Exception err) {
-            runCommand("say An error has occured... ", true);
+            runCommand("say An error has occured - " + err.toString(), true);
             getLogger().info("Outside Error: " + (err.toString()));
             return false;
         }
