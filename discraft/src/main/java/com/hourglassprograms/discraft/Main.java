@@ -2,15 +2,13 @@ package com.hourglassprograms.discraft;
 
 import java.security.MessageDigest;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigInteger;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
+
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
-;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -34,13 +32,10 @@ public class Main extends JavaPlugin {
         getLogger().info("DisCraft has loaded");
         loadConfig();
         loadExpress();
-        try {
-            getLogger().info("Linking to Discraft server...");
-            LinkDiscraft();
-        } catch (IOException e) {
-            // Auto-generated catch block
-            e.printStackTrace();
-        }
+
+        getLogger().info("Linking to Discraft server...");
+        LinkDiscraft();
+
     }
 
     @Override
@@ -178,12 +173,8 @@ public class Main extends JavaPlugin {
                 }
             } else if (args[0].equalsIgnoreCase("link")) {
                 String message = ChatColor.BOLD + "Linking to Discraft server...";
-                try {
-                    LinkDiscraft();
-                } catch (IOException e) {
-                    // Auto-generated catch block
-                    e.printStackTrace();
-                }
+                LinkDiscraft();
+
                 if (sender instanceof Player) { // Sender is player
                     Player player = (Player) sender;
                     if (player.hasPermission("link.use")) {
@@ -205,45 +196,56 @@ public class Main extends JavaPlugin {
         return false;
     }
 
-    public boolean LinkDiscraft() throws IOException {
-        String authkey = getConfig().getString("authkey");
-        String ip = Bukkit.getServer().getIp();
-        if (ip.equals("")) {
-            // IP is empty, so must be localhost
-            ip = "localhost";
-        }
-
-        String message = ip + authkey;
-        getLogger().info("Current IP: " + ip);
-        String hash = hash(message);
-        URL url = new URL("http://192.168.0.23:5000/link/" + ip + "/" + hash); // TODO Change to new server IP
+    public boolean LinkDiscraft() {
         try {
-            con = (HttpURLConnection) url.openConnection();
-            con.setRequestMethod("GET");
-            StringBuilder content;
+            String authkey = getConfig().getString("authkey");
+            String ip = Bukkit.getServer().getIp();
+            if (ip.equals("")) {
+                // IP is empty, so must be localhost
+                ip = "localhost";
+            }
 
-            try (BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
+            String message = ip + authkey;
+            getLogger().info("Current IP: " + ip);
+            String hash = hash(message);
+            URL url = new URL("http://192.168.0.23:5000/link/" + ip + "/" + hash); // TODO Change to new server IP
+            try {
+                con = (HttpURLConnection) url.openConnection();
+                con.setRequestMethod("GET");
+                StringBuilder content;
 
-                String line;
-                content = new StringBuilder();
+                try (BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
 
-                while ((line = in.readLine()) != null) {
+                    String line;
+                    content = new StringBuilder();
 
-                    content.append(line);
-                    content.append(System.lineSeparator());
+                    while ((line = in.readLine()) != null) {
+
+                        content.append(line);
+                        content.append(System.lineSeparator());
+                    }
                 }
-            }
 
-            if (content.toString().contains("200")) {
-                // Then success
-                runCommand("say Discraft has successfully been linked", true);
-            } else {
-                runCommand("say An error has occured - " + content.toString(), true);
-                getLogger().info("Error: " + (content.toString()));
+                if (content.toString().contains("200")) {
+                    // Then success
+                    runCommand("say Discraft has successfully been linked", true);
+                } else {
+                    runCommand("say An error has occured - " + content.toString(), true);
+                    getLogger().info("Error: " + (content.toString()));
+                }
+            } catch (Exception err) {
+                runCommand("say An error has occured... ", true);
+                getLogger().info("Error: " + (err.toString()));
+
+            } finally {
+
+                con.disconnect();
+                return true;
             }
-        } finally {
-            con.disconnect();
-            return true;
+        } catch (Exception err) {
+            runCommand("say An error has occured... ", true);
+            getLogger().info("Outside Error: " + (err.toString()));
+            return false;
         }
 
     }
