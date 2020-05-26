@@ -61,7 +61,7 @@ public class Main extends JavaPlugin {
                         res.send("401 - Hash  didnt match. Perhaps the auth key is incorrect?");
                     }
                 });
-                // get("/*", (req, res) -> res.send("404 - Wrong address"));
+                get("/*", (req, res) -> res.send("404 - Wrong address"));
 
                 // Start server
                 listen(port);
@@ -84,10 +84,11 @@ public class Main extends JavaPlugin {
 
     }
 
+    // Checks the hash sent from the get request and compares it locally to make
+    // sure nothging has been changed
     public boolean checkHash(String command, String hash) {
         String authkey = getConfig().getString("authkey");
         String message = command + authkey;
-        getLogger().info("Message: " + message);
         try {
 
             // Static getInstance method is called with hashing MD5
@@ -105,10 +106,8 @@ public class Main extends JavaPlugin {
             while (hashtext.length() < 32) {
                 hashtext = "0" + hashtext;
             }
-            getLogger().info(hashtext + " " + hash);
 
             if (hashtext.equals(hash)) {
-                getLogger().info("They match");
                 return true;
             } else {
                 return false;
