@@ -3,7 +3,10 @@ package com.hourglassprograms.discraft;
 import java.security.MessageDigest;
 import java.io.IOException;
 import java.math.BigInteger;
-
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
@@ -102,35 +105,11 @@ public class Main extends JavaPlugin {
     public boolean checkHash(String command, String hash) {
         String authkey = getConfig().getString("authkey");
         String message = command + authkey;
-        try {
-
-            // Static getInstance method is called with hashing MD5
-            MessageDigest md = MessageDigest.getInstance("MD5");
-
-            // digest() method is called to calculate message digest
-            // of an input digest() return array of byte
-            byte[] messageDigest = md.digest(message.getBytes());
-
-            // Convert byte array into signum representation
-            BigInteger no = new BigInteger(1, messageDigest);
-
-            // Convert message digest into hex value
-            String hashtext = no.toString(16);
-            while (hashtext.length() < 32) {
-                hashtext = "0" + hashtext;
-            }
-
-            if (hashtext.equals(hash)) {
-                return true;
-            } else {
-                return false;
-            }
-
-        }
-
-        // For specifying wrong message digest algorithms
-        catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
+        String hashtext = hash(message);
+        if (hashtext.equals(hash)) {
+            return true;
+        } else {
+            return false;
         }
 
     }
@@ -201,7 +180,7 @@ public class Main extends JavaPlugin {
                 try {
                     LinkDiscraft();
                 } catch (IOException e) {
-                    // TODO Auto-generated catch block
+                    // Auto-generated catch block
                     e.printStackTrace();
                 }
                 if (sender instanceof Player) { // Sender is player
@@ -225,20 +204,46 @@ public class Main extends JavaPlugin {
         return false;
     }
 
-    public boolean LinkDiscraft() throws ClientProtocolException, IOException {
-        HttpClient httpclient = HttpClients.createDefault();
-        HttpPost httppost = new HttpPost("http://192.168.0.23:5000/link");
+    public boolean LinkDiscraft() throws IOException {
+        String authkey = getConfig().getString("authkey");
+        String ip = Bukkit.getServer().getIp();
 
-        // Request parameters and other properties.
-        List<NameValuePair> params = new ArrayList<NameValuePair>(2);
-        params.add(new BasicNameValuePair("authkey", getConfig().getString("authkey")));
-
-        httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
-
-        // Execute and get the response.
-        HttpResponse response = httpclient.execute(httppost);
-        HttpEntity entity = response.getEntity();
-
+        String message = ip + authkey;
+        getLogger().info("On ip of: " + ip);
+        String hash = hash(message);
+        URL url = new URL("http://192.168.0.23:5000/link/" + ip + "/" + hash);
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("GET");
+        con.connect();
         return true;
+    }
+
+    public String hash(String inputText) {
+        try {
+
+            // Static getInstance method is called with hashing MD5
+            MessageDigest md = MessageDigest.getInstance("MD5");
+
+            // digest() method is called to calculate message digest
+            // of an input digest() return array of byte
+            byte[] messageDigest = md.digest(inputText.getBytes());
+
+            // Convert byte array into signum representation
+            BigInteger no = new BigInteger(1, messageDigest);
+
+            // Convert message digest into hex value
+            String hashtext = no.toString(16);
+            while (hashtext.length() < 32) {
+                hashtext = "0" + hashtext;
+            }
+
+            return hashtext;
+
+        }
+
+        // For specifying wrong message digest algorithms
+        catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -1,13 +1,13 @@
 main: com.hourglassprograms.discraft.Main
 name: Discraft
-version: 1.0.1
+version: 1.0.2
 author: Hourglass Programs
 api-version: 1.15
 commands:
   hello:
     description: Test hello command
   discraft:
-    description: "Use this to get the port or auth key"
+    description: "Use this to get the port or auth key or to link with the Discraft Server"
     permission: discraft.use
     permission-message: You do not have permission to use this command.
-    usage: "Usage: /<command> (port:auth)"
+    usage: "Usage: /<command> (port:auth:link)"
