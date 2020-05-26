@@ -243,7 +243,7 @@ public class Main extends JavaPlugin {
                 // Then success
                 runCommand("say Discraft has successfully been linked", true);
             } else {
-                runCommand("say An error has occured...", true);
+                runCommand("say An error has occured - " + content.toString(), true);
                 getLogger().info("Error: " + (content.toString()));
             }
         } finally {
