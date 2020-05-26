@@ -130,7 +130,7 @@ public class Main extends JavaPlugin {
                 return true;
             }
         }
-        if (label.equalsIgnoreCase("discraft")) {
+        if (label.equalsIgnoreCase("discraft") || label.equalsIgnoreCase("d")) {
             if (args.length == 0) {
                 // Display help for discraft
 
