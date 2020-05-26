@@ -219,6 +219,9 @@ public class Main extends JavaPlugin {
             if (getConfig().getString("authkey").equals("")) {
                 getLogger().info(
                         "The Authkey has not been set yet. Simply use d!auth in the discord to get the authkey and place that in the config.yml");
+                runCommand(
+                        "say The Authkey has not been set yet. Simply use d!auth in the discord to get the authkey and place that in the config.yml",
+                        true);
                 return false;
             }
             String ip = Bukkit.getServer().getIp();
