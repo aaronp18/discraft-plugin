@@ -173,12 +173,12 @@ public class Main extends JavaPlugin {
                 }
             } else if (args[0].equalsIgnoreCase("link")) {
                 String message = ChatColor.BOLD + "Linking to Discraft server...";
-                LinkDiscraft();
 
                 if (sender instanceof Player) { // Sender is player
                     Player player = (Player) sender;
                     if (player.hasPermission("link.use")) {
                         player.sendMessage(message);
+                        LinkDiscraft();
 
                     } else {
                         player.sendMessage(ChatColor.BOLD + "You do not have the permission to do this");
@@ -188,6 +188,7 @@ public class Main extends JavaPlugin {
                 } else {
                     // Console
                     sender.sendMessage(message);
+                    LinkDiscraft();
                     return true;
                 }
             }
