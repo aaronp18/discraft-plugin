@@ -1,7 +1,9 @@
 package com.hourglassprograms.discraft;
 
 import java.security.MessageDigest;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -34,6 +36,7 @@ import express.Express;
 public class Main extends JavaPlugin {
     // Use to get jar with all dependencies
     // mvn clean compile assembly:single
+    private HttpURLConnection con;
 
     @Override
     public void onEnable() {
@@ -207,15 +210,44 @@ public class Main extends JavaPlugin {
     public boolean LinkDiscraft() throws IOException {
         String authkey = getConfig().getString("authkey");
         String ip = Bukkit.getServer().getIp();
+        if (ip.equals("")) {
+            // IP is empty, so must be localhost
+            ip = "localhost";
+        }
 
         String message = ip + authkey;
-        getLogger().info("On ip of: " + ip);
+        getLogger().info("Current IP: " + ip);
         String hash = hash(message);
-        URL url = new URL("http://192.168.0.23:5000/link/" + ip + "/" + hash);
-        HttpURLConnection con = (HttpURLConnection) url.openConnection();
-        con.setRequestMethod("GET");
-        con.connect();
-        return true;
+        URL url = new URL("http://192.168.0.23:5000/link/" + ip + "/" + hash); // TODO Change to new server IP
+        try {
+            con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("GET");
+            StringBuilder content;
+
+            try (BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
+
+                String line;
+                content = new StringBuilder();
+
+                while ((line = in.readLine()) != null) {
+
+                    content.append(line);
+                    content.append(System.lineSeparator());
+                }
+            }
+
+            if (content.toString().contains("200")) {
+                // Then success
+                runCommand("say Discraft has successfully been linked");
+            } else {
+                runCommand("An error has occured...");
+                getLogger().info("Error: " + (content.toString()));
+            }
+        } finally {
+            con.disconnect();
+            return true;
+        }
+
     }
 
     public String hash(String inputText) {
