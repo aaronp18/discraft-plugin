@@ -148,7 +148,7 @@ public class Main extends JavaPlugin {
                 return false;
             } else if (args[0].equalsIgnoreCase("port")) {
                 if (args.length == 2) {
-                    // Means gonna set port
+                    // Therfore to set port
                     if (isNumeric(args[1])) {
 
                         String message = ChatColor.BOLD + "Port set to: " + ChatColor.RED + args[1];
@@ -156,7 +156,7 @@ public class Main extends JavaPlugin {
                             Player player = (Player) sender;
                             if (player.hasPermission("port.set")) {
                                 player.sendMessage(message);
-                                this.getConfig().set("port", args[1]);
+                                this.getConfig().set("port", Integer.parseInt(args[1]));
                                 saveConfig();
 
                             } else {
@@ -167,7 +167,7 @@ public class Main extends JavaPlugin {
                         } else {
                             // Console
                             sender.sendMessage(message);
-                            this.getConfig().set("port", args[1]);
+                            this.getConfig().set("port", Integer.parseInt(args[1]));
                             saveConfig();
                             return true;
                         }
