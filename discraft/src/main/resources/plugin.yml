@@ -1,6 +1,6 @@
 main: com.hourglassprograms.discraft.Main
 name: Discraft
-version: 1.0.5
+version: 1.0.6
 author: Hourglass Programs
 api-version: 1.15
 commands:
@@ -8,9 +8,9 @@ commands:
     description: "Use this to get the port or auth key or to link with the Discraft Server"
     permission: discraft.use
     permission-message: You do not have permission to use this command.
-    usage: "Usage: /<command> (port:auth:link)"
+    usage: "Usage: /<command> (port <new port>:auth <authkey>:link)"
   discraft link:
-    description: "Use this to link with the Discraft Server using the Authkey in the config (/discraft auth)"
+    description: "Use this to link with the Discraft Server using the Authkey in the config (/discraft auth <authkey>)"
     permission: discraft.use
     permission-message: You do not have permission to use this command.
     usage: "Usage: /<command> link"
@@ -18,9 +18,9 @@ commands:
     description: "Use this to find the port that the server runs on"
     permission: discraft.use
     permission-message: You do not have permission to use this command.
-    usage: "Usage: /<command>"
+    usage: "Usage: /<command> <new port> "
   discraft auth:
     description: "Use this to get the authkey set on this Discraft Server."
     permission: discraft.use
     permission-message: You do not have permission to use this command.
-    usage: "Usage: /<command>"
+    usage: "Usage: /<command> <authkey>"

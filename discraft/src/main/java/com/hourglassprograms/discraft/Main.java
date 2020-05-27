@@ -70,9 +70,9 @@ public class Main extends JavaPlugin {
                 get("/run/:command/:hash", (req, res) -> {
                     if (checkHash(req.getParam("command"), req.getParam("hash"))) {
                         runCommand(req.getParam("command"), false);
-                        res.send("200 - " + req.getParam("command") + " was ran successfully");
+                        res.send("200 - " + req.getParam("command") + " was executed successfully");
                     } else {
-                        res.send("401 - Hash didnt match. Perhaps the auth key is incorrect?");
+                        res.send("401 - Hash doesn't match. Perhaps the auth key is incorrect?");
                     }
                 });
                 get("/*", (req, res) -> res.send("404 - Wrong address"));
@@ -147,45 +147,89 @@ public class Main extends JavaPlugin {
 
                 return false;
             } else if (args[0].equalsIgnoreCase("port")) {
-                String message = ChatColor.BOLD + "The Port that discraft is running on is: " + ChatColor.RED
-                        + this.getConfig().getInt("port");
-                if (sender instanceof Player) { // Sender is player
-                    Player player = (Player) sender;
-                    if (player.hasPermission("port.get")) {
-                        player.sendMessage(message);
+                if (args.length == 2) {
+                    // Means gonna set port
+                    if (isNumeric(args[1])) {
 
+                        String message = ChatColor.BOLD + "Port set to: " + ChatColor.RED + args[1];
+                        if (sender instanceof Player) { // Sender is player
+                            Player player = (Player) sender;
+                            if (player.hasPermission("port.set")) {
+                                player.sendMessage(message);
+                                getConfig().set("port", args[1]);
+
+                            } else {
+                                player.sendMessage(ChatColor.BOLD + "You do not have the permission to do this");
+                            }
+
+                            return true;
+                        } else {
+                            // Console
+                            sender.sendMessage(message);
+                            getConfig().set("port", args[1]);
+                            return true;
+                        }
                     } else {
-                        player.sendMessage(ChatColor.BOLD + "You do not have the permission to do this");
+                        String message = ChatColor.BOLD + "Port setting failed, please only use an integer";
+                        if (sender instanceof Player) { // Sender is player
+                            Player player = (Player) sender;
+                            player.sendMessage(message);
+                            return true;
+                        } else {
+                            // Console
+                            sender.sendMessage(message);
+                            return true;
+                        }
                     }
 
-                    return true;
-                } else {
-                    // Console
-                    sender.sendMessage(message);
-                    return true;
+                } else if (args.length == 1) {
+                    String message = ChatColor.BOLD + "The Port that discraft is running on is: " + ChatColor.RED
+                            + this.getConfig().getInt("port");
+                    if (sender instanceof Player) { // Sender is player
+                        Player player = (Player) sender;
+                        if (player.hasPermission("port.get")) {
+                            player.sendMessage(message);
+
+                        } else {
+                            player.sendMessage(ChatColor.BOLD + "You do not have the permission to do this");
+                        }
+
+                        return true;
+                    } else {
+                        // Console
+                        sender.sendMessage(message);
+                        return true;
+                    }
                 }
+
             } else if (args[0].equalsIgnoreCase("auth")) {
 
-                String message = ChatColor.BOLD + "The Authkey for this server for Discraft is: " + ChatColor.RED
-                        + this.getConfig().getString("authkey");
-                if (this.getConfig().getString("authkey").equals("")) {
-                    message = ChatColor.BOLD
-                            + "The authkey has not been set yet. Simply use d!auth in the discord to get the authkey and place that in the config.yml";
-                }
-                if (sender instanceof Player) { // Sender is player
-                    Player player = (Player) sender;
-                    if (player.hasPermission("auth.get")) {
-                        player.sendMessage(message);
+                if (args.length > 1) {
+                    // Then is setting
+                    getConfig().set("authkey", args[1]);
 
-                    } else {
-                        player.sendMessage(ChatColor.BOLD + "You do not have the permission to do this");
-                    }
-
-                    return true;
                 } else {
-                    // Console
-                    sender.sendMessage(message);
-                    return true;
+                    String message = ChatColor.BOLD + "The Authkey for this server for Discraft is: " + ChatColor.RED
+                            + this.getConfig().getString("authkey");
+                    if (this.getConfig().getString("authkey").equals("")) {
+                        message = ChatColor.BOLD
+                                + "The authkey has not been set yet. Simply use d!auth in the discord to get the authkey and place that in the config.yml";
+                    }
+                    if (sender instanceof Player) { // Sender is player
+                        Player player = (Player) sender;
+                        if (player.hasPermission("auth.get")) {
+                            player.sendMessage(message);
+
+                        } else {
+                            player.sendMessage(ChatColor.BOLD + "You do not have the permission to do this");
+                        }
+
+                        return true;
+                    } else {
+                        // Console
+                        sender.sendMessage(message);
+                        return true;
+                    }
                 }
             } else if (args[0].equalsIgnoreCase("link")) {
                 String message = ChatColor.BOLD + "Linking to Discraft server...";
@@ -273,6 +317,18 @@ public class Main extends JavaPlugin {
             return false;
         }
 
+    }
+
+    public boolean isNumeric(String strNum) {
+        if (strNum == null) {
+            return false;
+        }
+        try {
+            double d = Integer.parseInt(strNum);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
     }
 
     public String hash(String inputText) {
