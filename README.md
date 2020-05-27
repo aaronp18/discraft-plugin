@@ -8,7 +8,7 @@ Use `d!setup` for information on how to setup the bot in discord or `d!help` for
 
 <h5>Setup</h5>
 <hr>
-Firstly, download and install the Discraft plugin from *<ENTER URL>* into your plugins folder on your Minecraft server.
+Firstly, download and install the Discraft plugin from <a href="https://github.com/aaronp18/discraft-plugin/releases"> releases </a> into your plugins folder on your Minecraft server.
 
 Then invite the bot <a href="https://discord.com/oauth2/authorize?client_id=714564857822969868&scope=bot&permissions=150528">Click Here</a> to your server.
 
