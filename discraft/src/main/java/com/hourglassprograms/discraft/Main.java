@@ -157,6 +157,7 @@ public class Main extends JavaPlugin {
                             if (player.hasPermission("port.set")) {
                                 player.sendMessage(message);
                                 getConfig().set("port", args[1]);
+                                saveConfig();
 
                             } else {
                                 player.sendMessage(ChatColor.BOLD + "You do not have the permission to do this");
@@ -167,6 +168,7 @@ public class Main extends JavaPlugin {
                             // Console
                             sender.sendMessage(message);
                             getConfig().set("port", args[1]);
+                            saveConfig();
                             return true;
                         }
                     } else {
@@ -207,6 +209,7 @@ public class Main extends JavaPlugin {
                 if (args.length > 1) {
                     // Then is setting
                     getConfig().set("authkey", args[1]);
+                    saveConfig();
 
                 } else {
                     String message = ChatColor.BOLD + "The Authkey for this server for Discraft is: " + ChatColor.RED
