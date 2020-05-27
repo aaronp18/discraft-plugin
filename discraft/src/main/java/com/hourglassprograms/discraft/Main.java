@@ -104,12 +104,12 @@ public class Main extends JavaPlugin {
     // Checks the hash sent from the get request and compares it locally to make
     // sure nothging has been changed
     public boolean checkHash(String command, String hash) {
-        if (getConfig().getString("authkey").equals("")) {
+        if (this.getConfig().getString("authkey").equals("")) {
             getLogger().info(
                     "The Authkey has not been set yet. Simply use d!auth in the discord to get the authkey and place that in the config.yml");
             return false;
         } else {
-            String authkey = getConfig().getString("authkey");
+            String authkey = this.getConfig().getString("authkey");
             String message = command + authkey;
             String hashtext = hash(message);
             if (hashtext.equals(hash)) {
@@ -156,7 +156,7 @@ public class Main extends JavaPlugin {
                             Player player = (Player) sender;
                             if (player.hasPermission("port.set")) {
                                 player.sendMessage(message);
-                                getConfig().set("port", args[1]);
+                                this.getConfig().set("port", args[1]);
                                 saveConfig();
 
                             } else {
@@ -167,7 +167,7 @@ public class Main extends JavaPlugin {
                         } else {
                             // Console
                             sender.sendMessage(message);
-                            getConfig().set("port", args[1]);
+                            this.getConfig().set("port", args[1]);
                             saveConfig();
                             return true;
                         }
@@ -262,8 +262,8 @@ public class Main extends JavaPlugin {
 
     public boolean LinkDiscraft() {
         try {
-            String authkey = getConfig().getString("authkey");
-            if (getConfig().getString("authkey").equals("")) {
+            String authkey = this.getConfig().getString("authkey");
+            if (this.getConfig().getString("authkey").equals("")) {
                 getLogger().info(
                         "The Authkey has not been set yet. Simply use d!auth in the discord to get the authkey and place that in the config.yml");
                 runCommand(
