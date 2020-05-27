@@ -72,7 +72,7 @@ public class Main extends JavaPlugin {
                         runCommand(req.getParam("command"), false);
                         res.send("200 - " + req.getParam("command") + " was ran successfully");
                     } else {
-                        res.send("401 - Hash  didnt match. Perhaps the auth key is incorrect?");
+                        res.send("401 - Hash didnt match. Perhaps the auth key is incorrect?");
                     }
                 });
                 get("/*", (req, res) -> res.send("404 - Wrong address"));
@@ -233,7 +233,7 @@ public class Main extends JavaPlugin {
             String message = ip + authkey;
             getLogger().info("Current IP: " + ip);
             String hash = hash(message);
-            URL url = new URL("http://192.168.0.23:5000/link/" + ip + "/" + hash); // TODO Change to new server IP
+            URL url = new URL("http://49.12.110.51:5000/link/" + ip + "/" + hash); // TODO Change to new server IP
             try {
                 con = (HttpURLConnection) url.openConnection();
                 con.setRequestMethod("GET");
