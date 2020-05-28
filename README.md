@@ -1,22 +1,28 @@
 <h1>discraft-plugin</h1>
-<h4>The plugin required for Discraft</h4>
+<h4>The Whitelisting and Utility bot for Minecraft</h4>
 <hr>
 <h5>About</h5>
-Discraft is a bot/plugin that enables discord users to run commands from discord to their Minecraft Server. It is all a work in progress. If you find any issues please file a bug report, thank you :P
+Discraft is a bot/plugin that enables Discord admins to run commands on their Minecraft Server from Discord.
+
+One of the main features of this bot, is that discord members in your server (once given a specific role), can add themselves to your whitelisted Minecraft Server without a mod having to intervene and add them manually.
+
+This is ideal for Discord communities who only want "Patreons" to be able to join their whitelisted server.
+
+It is all a work in progress though, so if you find any issues please file a bug report. If you have any questions or suggestions feel free to add me on Discord: `BurntWindow#3499`
 
 Use `d!setup` for information on how to setup the bot in discord or `d!help` for command help.
 
-<h5>Setup</h5>
 <hr>
-Firstly, download and install the Discraft plugin from <a href="https://github.com/aaronp18/discraft-plugin/releases"> releases </a> into your plugins folder on your Minecraft server.
+<h5>Setup</h5>
+Firstly, download and install the Discraft plugin from <a href="https://github.com/aaronp18/discraft-plugin/releases"> releases, </a> and put it into your plugins folder on your Minecraft server.
 
 Then invite the bot <a href="https://discord.com/oauth2/authorize?client_id=714564857822969868&scope=bot&permissions=150528">Click Here</a> to your server.
 
-Then do `d!auth` to get the authkey for your server. This will be sent to you via DM, keep this secure!
+Then do `d!auth` to get the `authkey` for your server. This will be sent to you via DM, keep this secure!
 
 Then once you've started the minecraft server copy the `authkey` from the DM either into the `authkey` field in the config.yml within `plugins\discraft` or into `/discraft auth <authkey>`.
 
-Then in the minecraft server, run `/discraft link` to link the minecraft server to the discord bot.
+Then on the Minecraft server, run `/discraft link` to link the minecraft server to the discord bot.
 
 Everything should be setup now
 
