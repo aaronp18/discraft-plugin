@@ -1,4 +1,4 @@
-
+<h1>Discraft</h1>
 <h4>The Whitelisting and Utility bot for Minecraft</h4>
 <hr>
 <h5>About</h5>
