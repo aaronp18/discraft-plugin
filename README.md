@@ -18,7 +18,7 @@ Then once you've started the minecraft server copy the `authkey` from the DM eit
 
 Then in the minecraft server, run `/discraft link` to link the minecraft server to the discord bot.
 
-Everything should be setup now\n
+Everything should be setup now
 
 <hr>
 <h5>Usage</h5>
