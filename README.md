@@ -18,7 +18,7 @@ Then once you've started the minecraft server copy the `authkey` from the DM eit
 
 Then in the minecraft server, run `/discraft link` to link the minecraft server to the discord bot.
 
-Everything should be setup now\n 
+Everything should be setup now\n
 
 <hr>
 <h5>Usage</h5>
@@ -36,4 +36,16 @@ And then use `d!whitelist me` to add themselves to the whitelist.",
 <h6>Running Commands</h6>
 
 Using `d!run <command`, admins should be able to execute commands from the discord. This is still a WIP though
-                  
+
+<hr>
+<h5>Troubleshooting</h5>
+<h6>The plugin doesn't start correctly</h6>
+This can happen for a couple of reasons.
+
+One major one is that the port it is trying to listen to is being used by something else.
+
+To fix this, simply use `/discraft port <new port>` or change the `config.yml` `port` field of the minecraft server and restart.
+
+Then use `d!port <new port>` in the discord to save it to the server.
+
+This should fix it. If not then send an email to `support@hourglassprograms.com`
