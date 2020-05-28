@@ -31,13 +31,13 @@ Everything should be setup now
 <h6>Whitelisting</h6>
 One advantage of this bot is that you can make a role that will allow discord users with that role to add themselves to the whitelist automatically.
 
-Firstly make a role that you want to be required in order to add to the whitelist.
+Firstly make a role that you want to be required in order to add to the whitelist if you don't already have one.
 
-Then do `d!whitelist role set @Role` to set the role.
+Then do `d!whitelist role set @Role` to set the role required for self whitelisting.
 
 Players should then be able to link their Discord with their Minecraft username using `d!whitelist link <Minecraft Name>`.
 
-And then use `d!whitelist me` to add themselves to the whitelist.",
+And then use `d!whitelist me` to add themselves to the whitelist.
 
 <h6>Running Commands</h6>
 
