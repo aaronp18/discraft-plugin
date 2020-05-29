@@ -39,6 +39,8 @@ Players should then be able to link their Discord with their Minecraft username 
 
 And then use `d!whitelist me` to add themselves to the whitelist.
 
+If you do not want a role to be required then simply run `d!config whitelistrolerequired false`
+
 <h6>Running Commands</h6>
 
 Using `d!run <command`, admins should be able to execute commands from the discord. This is still a WIP though
