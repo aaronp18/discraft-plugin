@@ -21,7 +21,7 @@ import express.Express;
 
 public class Main extends JavaPlugin {
     // Use to get jar with all dependencies
-    // mvn clean compile assembly:single
+    // ! mvn clean compile assembly:single
     private HttpURLConnection con;
 
     @Override
@@ -75,7 +75,7 @@ public class Main extends JavaPlugin {
                         res.send("401 - Hash doesn't match. Perhaps the auth key is incorrect?");
                     }
                 });
-                get("/*", (req, res) -> res.send("404 - Wrong address"));
+                get("*", (req, res) -> res.send("404 - Page not found"));
 
                 // Start server
                 listen(port);
