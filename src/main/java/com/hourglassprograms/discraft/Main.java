@@ -208,9 +208,28 @@ public class Main extends JavaPlugin {
 
                 if (args.length > 1) {
                     // Then is setting
-                    getConfig().set("authkey", args[1]);
-                    saveConfig();
 
+                    String message = ChatColor.BOLD + "The Authkey for this server has been updated";
+
+                    if (sender instanceof Player) { // Sender is player
+                        Player player = (Player) sender;
+                        if (player.hasPermission("auth.set")) {
+                            player.sendMessage(message);
+                            getConfig().set("authkey", args[1]);
+                            saveConfig();
+                        } else {
+                            player.sendMessage(ChatColor.BOLD + "You do not have the permission to do this");
+                        }
+
+                        return true;
+                    } else {
+                        // Console
+                        getConfig().set("authkey", args[1]);
+                        saveConfig();
+                        sender.sendMessage(message);
+
+                        return true;
+                    }
                 } else {
                     String message = ChatColor.BOLD + "The Authkey for this server for Discraft is: " + ChatColor.RED
                             + this.getConfig().getString("authkey");
@@ -280,7 +299,7 @@ public class Main extends JavaPlugin {
             String message = ip + authkey;
             getLogger().info("Current IP: " + ip);
             String hash = hash(message);
-            URL url = new URL("http://49.12.110.51:5000/link/" + ip + "/" + hash); // TODO Change to new server IP
+            URL url = new URL("http://discraft.hourglassprograms.com/link/" + ip + "/" + hash);
             try {
                 con = (HttpURLConnection) url.openConnection();
                 con.setRequestMethod("GET");
