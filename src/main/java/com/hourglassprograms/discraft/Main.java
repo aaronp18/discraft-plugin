@@ -93,7 +93,7 @@ public class Main extends JavaPlugin {
 
                 Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), cmd);
                 if (!silent) {
-                    getLogger().info("Ran: " + cmd);
+                    getLogger().info("Executed " + cmd + " from Discord");
                 }
 
             }
