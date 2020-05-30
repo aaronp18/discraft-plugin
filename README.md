@@ -41,6 +41,10 @@ And then use `d!whitelist me` to add themselves to the whitelist.
 
 If you do not want a role to be required then simply run `d!config whitelistrolerequired false`
 
+Members can then use `d!connect` to get the IP needed to connect. This can be enabled/disabled with `d!config cangetip <true:false>`.
+
+The IP they see can be set using `d!config displayip <Server IP + port>`.
+
 <h6>Running Commands</h6>
 
 Using `d!run <command`, admins should be able to execute commands from the discord. This is still a WIP though
