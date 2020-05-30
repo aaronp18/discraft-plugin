@@ -1,3 +1,6 @@
 target/
 target/*
 target/classes/com/hourglassprograms/discraft/Main.class
+target/classes/com/hourglassprograms/discraft/Main.class
+target/classes/com/hourglassprograms/discraft/Main$1.class
+target/classes/com/hourglassprograms/discraft/Main$2.class
