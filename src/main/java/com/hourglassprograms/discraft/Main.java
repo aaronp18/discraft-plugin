@@ -23,6 +23,7 @@ public class Main extends JavaPlugin {
     // Use to get jar with all dependencies
     // ! mvn clean compile assembly:single
     private HttpURLConnection con;
+    public Express app;
 
     @Override
     public void onEnable() {
@@ -31,7 +32,7 @@ public class Main extends JavaPlugin {
         // Plugin reloads
         getLogger().info("DisCraft has loaded");
         loadConfig();
-        loadExpress();
+        app = loadExpress();
 
         if (this.getConfig().getString("authkey").equals("")) {
             getLogger().info(
@@ -48,6 +49,7 @@ public class Main extends JavaPlugin {
         // Shutdown
         // Reloads
         // Plugin reloads
+        app.stop();
         this.saveDefaultConfig();
     }
 
@@ -59,7 +61,7 @@ public class Main extends JavaPlugin {
         saveConfig();
     }
 
-    public void loadExpress() {
+    public Express loadExpress() {
         // ? Gets port from config
         FileConfiguration config = this.getConfig();
         int port = config.getInt("port");
@@ -82,6 +84,7 @@ public class Main extends JavaPlugin {
             }
         };
         getLogger().info("Discraft server running on port: " + port);
+        return app;
 
     }
 

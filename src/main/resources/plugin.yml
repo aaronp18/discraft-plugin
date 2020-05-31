@@ -1,11 +1,8 @@
 main: com.hourglassprograms.discraft.Main
 name: Discraft
-version: 1.0.8
+version: 1.0.9
 author: Hourglass Programs
 api-version: 1.15
-permissions:
-  discraft.*:
-  discraft.use:
 commands:
   discraft:
     description: "Use this to get the port or auth key or to link with the Discraft Server"
