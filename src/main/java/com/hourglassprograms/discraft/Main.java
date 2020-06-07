@@ -297,6 +297,9 @@ public class Main extends JavaPlugin {
             if (ip.equals("")) {
                 // IP is empty, so must be localhost
                 ip = "localhost";
+                runCommand(
+                        "say The linked IP is \"localhost\". This means that the Discraft Bot will not be able to connect. Please make sure your server.properties has the server IP set.",
+                        true);
             }
 
             String message = ip + authkey;
