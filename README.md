@@ -47,7 +47,7 @@ The IP they see can be set using `d!config displayip <Server IP + port>`.
 
 <h6>Running Commands</h6>
 
-Using `d!run <command`, admins should be able to execute commands from the discord. This is still a WIP though
+Using `d!run <command>`, admins should be able to execute commands from the discord. This is still a WIP though
 
 <hr>
 <h5>Troubleshooting</h5>
@@ -60,4 +60,4 @@ To fix this, simply use `/discraft port <new port>` or change the `config.yml` `
 
 Then use `d!port <new port>` in the discord to save it to the server.
 
-This should fix it. If not then send an email to `support@hourglassprograms.com`
+This should fix it. If not then send an email to `hourglassprograms@gmail.com` or send a DM to `BurntWindow#3449` on Discord.
