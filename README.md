@@ -11,6 +11,10 @@ This is ideal for Discord communities who only want "Patreons" to be able to joi
 It is all a work in progress though, so if you find any issues please file a bug report. If you have any questions or suggestions feel free to add me on Discord: `BurntWindow#3499`
 
 Use `d!setup` for information on how to setup the bot in discord or `d!help` for command help.
+<hr>
+<h5>Setup</h5>
+To Setup the bot, use the docs from <a href="http://discraft.hourglassprograms.com/docs">here</a>.
+
 
 <hr>
 <h5>Setup</h5>
