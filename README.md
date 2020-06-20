@@ -12,8 +12,8 @@ It is all a work in progress though, so if you find any issues please file a bug
 
 Use `d!setup` for information on how to setup the bot in discord or `d!help` for command help.
 <hr>
-<h5>Setup</h5>
-To Setup the bot, use the docs from <a href="http://discraft.hourglassprograms.com/docs">here</a>.
+<h5>NEW</h5>
+ You can now use the website to configure the bot <a href="http://discraft.hourglassprograms.com/">here</a>. This is alittle easier than setting it up in Discord.
 
 
 <hr>
