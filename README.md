@@ -15,11 +15,6 @@ It is all a work in progress though, so if you find any issues please file a bug
 
 Use `d!setup` for information on how to setup the bot in discord or `d!help` for command help.
 <hr>
-<h5>NEW</h5>
- You can now use the website to configure the bot <a href="http://discraft.hourglassprograms.com/">here</a>. This is a little easier than setting it up in Discord.
-
-
-<hr>
 <h5>Setup</h5>
  Firstly, download and install the latest release of Discraft from <a href="https://www.spigotmc.org/resources/discraft-plugin.79481/history" class="link"> here </a> and put it into your folder on your Minecraft server.
 
