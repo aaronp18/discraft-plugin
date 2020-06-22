@@ -1,6 +1,9 @@
 <h1>Discraft</h1>
 <h4>The Whitelisting and Utility bot for Minecraft</h4>
 <hr>
+<h5>WARNING</h5>
+To reduce any missed details from updates, all up to date documentation can be found <a href="http://discraft.hourglassprograms.com/docs">here</a>. The following documentation will not be updated.
+<hr>
 <h5>About</h5>
 Discraft is a bot/plugin that enables Discord admins to run commands on their Minecraft Server from Discord.
 
@@ -13,7 +16,7 @@ It is all a work in progress though, so if you find any issues please file a bug
 Use `d!setup` for information on how to setup the bot in discord or `d!help` for command help.
 <hr>
 <h5>NEW</h5>
- You can now use the website to configure the bot <a href="http://discraft.hourglassprograms.com/">here</a>. This is alittle easier than setting it up in Discord.
+ You can now use the website to configure the bot <a href="http://discraft.hourglassprograms.com/">here</a>. This is a little easier than setting it up in Discord.
 
 
 <hr>
