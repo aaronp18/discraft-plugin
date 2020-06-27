@@ -277,6 +277,42 @@ public class Main extends JavaPlugin {
                     return true;
                 }
             }
+            // * Sends link to website
+            else if (args[0].equalsIgnoreCase("website") || args[0].equalsIgnoreCase("web")
+                    || args[0].equalsIgnoreCase("configure") || args[0].equalsIgnoreCase("dashboard")
+                    || args[0].equalsIgnoreCase("config")) {
+
+                if (sender instanceof Player) { // Sender is player
+                    Player player = (Player) sender;
+                    sendClickMessage(player, "To configure the bot click here to go to the website.",
+                            "http://discraft.hourglassprograms.com");
+                    return true;
+                } else {
+                    // Console
+                    sender.sendMessage(ChatColor.BOLD
+                            + "The bot can be configured from this website: http://discraft.hourglassprograms.com");
+
+                    return true;
+
+                }
+            }
+            // * Sends link to the discord bot
+            else if (args[0].equalsIgnoreCase("bot") || args[0].equalsIgnoreCase("invite")) {
+
+                if (sender instanceof Player) { // Sender is player
+                    Player player = (Player) sender;
+                    sendClickMessage(player, "To invite the bot, click here.",
+                            "https://discord.com/oauth2/authorize?client_id=714564857822969868&scope=bot&permissions=150528");
+                    return true;
+                } else {
+                    // Console
+                    sender.sendMessage(ChatColor.BOLD
+                            + "The bot can be configured from this website: https://discord.com/oauth2/authorize?client_id=714564857822969868&scope=bot&permissions=150528");
+
+                    return true;
+
+                }
+            }
 
         }
         return false;
@@ -387,4 +423,11 @@ public class Main extends JavaPlugin {
             throw new RuntimeException(e);
         }
     }
+
+    // * Sends player link
+    public void sendClickMessage(Player player, String message, String url) {
+        Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "/tellraw " + player.getName() + " {text:\""
+                + message + "\",\"bold\":true,\"color\":\"white\",clickEvent:{action:open_url,value:\"" + url + "\"}}");
+    }
+
 }
