@@ -8,7 +8,7 @@ commands:
     description: "Use this to get the port or auth key or to link with the Discraft Server"
     permission: discraft.use
     permission-message: You do not have permission to use this command.
-    usage: "Usage: /<command> (port <new port>:auth <authkey>:link)"
+    usage: "Usage: /<command> (port <new port> : auth <authkey> : link : website : invite)"
   discraft link:
     description: "Use this to link with the Discraft Server using the Authkey in the config (/discraft auth <authkey>)"
     permission: discraft.link
@@ -27,6 +27,6 @@ commands:
   discraft website:
     description: "Use this to get the link to the Discraft website. Here you can configure the bot and read the documentation."
     usage: "Usage: /<command>"
-  discraft bot:
+  discraft invite:
     description: "Use this to get the link to invite the Discraft bot to your Discord server."
     usage: "Usage: /<command>"

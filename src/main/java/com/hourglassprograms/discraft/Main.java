@@ -426,8 +426,10 @@ public class Main extends JavaPlugin {
 
     // * Sends player link
     public void sendClickMessage(Player player, String message, String url) {
-        Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "/tellraw " + player.getName() + " {text:\""
-                + message + "\",\"bold\":true,\"color\":\"white\",clickEvent:{action:open_url,value:\"" + url + "\"}}");
+        Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(),
+                "tellraw " + player.getName() + " {\"text\":\"" + message
+                        + "\",\"bold\":true,\"color\":\"white\",\"clickEvent\":{\"action\":\"open_url\",\"value\":\""
+                        + url + "\"}}");
     }
 
 }
