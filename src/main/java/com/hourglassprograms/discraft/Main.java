@@ -30,6 +30,16 @@ public class Main extends JavaPlugin {
         // Startup
         // Reloads
         // Plugin reloads
+
+        // * Checks if there is an update for the plugin
+        new UpdateChecker(this, 79481).getVersion(version -> {
+            if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
+                getLogger().info("There is not a new update available. (" + version + ")");
+            } else {
+                getLogger().info("There is a new update available (" + version + ")");
+            }
+        });
+
         getLogger().info("DisCraft has loaded");
         loadConfig();
         app = loadExpress();

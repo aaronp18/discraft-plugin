@@ -1,3 +1,10 @@
 target/
 target/*
 /target/*
+target/classes/plugin.yml
+target/classes/com/hourglassprograms/discraft/Main.class
+target/classes/com/hourglassprograms/discraft/Main$1.class
+target/classes/com/hourglassprograms/discraft/Main$2.class
+target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+description.txt
