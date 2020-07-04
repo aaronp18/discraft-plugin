@@ -1,6 +1,6 @@
 main: com.hourglassprograms.discraft.Main
 name: Discraft
-version: 1.0.12
+version: 1.0.13
 author: Hourglass Programs
 api-version: 1.15
 commands:

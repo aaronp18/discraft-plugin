@@ -48,8 +48,11 @@ public class Main extends JavaPlugin {
             getLogger().info(
                     "The Authkey has not been set yet. Simply use d!auth in the discord to get the authkey and place that in the config.yml");
         } else {
-            getLogger().info("Linking to Discraft server...");
-            LinkDiscraft();
+            if (this.getConfig().getBoolean("linkonstart")) {
+                getLogger().info("Linking to Discraft server...");
+                LinkDiscraft();
+            }
+
         }
 
     }
@@ -67,6 +70,7 @@ public class Main extends JavaPlugin {
         FileConfiguration config = this.getConfig();
         config.addDefault("port", 9000);
         config.addDefault("authkey", "");
+        config.addDefault("linkonstart", false);
         config.options().copyDefaults(true);
         saveConfig();
     }
