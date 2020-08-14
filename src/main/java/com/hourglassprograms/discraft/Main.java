@@ -8,6 +8,7 @@ import java.net.HttpURLConnection;
 
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
+import java.util.Collection;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -16,8 +17,12 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import express.Express;
+import express.http.request.Request;
+import express.http.response.Response;
 
 public class Main extends JavaPlugin {
     // Use to get jar with all dependencies
@@ -34,11 +39,16 @@ public class Main extends JavaPlugin {
         // * Checks if there is an update for the plugin
         new UpdateChecker(this, 79481).getVersion(version -> {
             if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
-                getLogger().info("There is not a new update available. (" + version + ")");
+                getLogger().info("Discraft is up to date (" + version + ")");
             } else {
                 getLogger().info("There is a new update available (" + version + ")");
             }
         });
+        // Start server up time
+        TPS.setTimeAlive(System.currentTimeMillis());
+
+        // Start TPS cehcker
+        Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new TPS(), 100L, 1L);
 
         getLogger().info("DisCraft has loaded");
         loadConfig();
@@ -79,26 +89,73 @@ public class Main extends JavaPlugin {
         // ? Gets port from config
         FileConfiguration config = this.getConfig();
         int port = config.getInt("port");
-        Express app = new Express() {
-            {
-                // Define Root Greeting
-                get("/", (req, res) -> res.send("Welcome to DisCraft"));
-                get("/run/:command/:hash", (req, res) -> {
-                    if (checkHash(req.getParam("command"), req.getParam("hash"))) {
-                        runCommand(req.getParam("command"), false);
-                        res.send("200 - " + req.getParam("command") + " was executed successfully");
-                    } else {
-                        res.send("401 - Hash doesn't match. Perhaps the auth key is incorrect?");
-                    }
-                });
-                get("*", (req, res) -> res.send("404 - Page not found"));
-
-                // Start server
-                listen(port);
+        Express app = new Express();
+        // Define Root Greeting
+        app.get("/", (req, res) -> res.send("Welcome to DisCraft"));
+        // Run command
+        app.get("/run/:command/:hash", (req, res) -> {
+            if (checkHash(req.getParam("command"), req.getParam("hash"))) {
+                runCommand(req.getParam("command"), false);
+                res.send("200 - " + req.getParam("command") + " was executed successfully");
+            } else {
+                res.send("401 - Hash doesn't match. Perhaps the auth key is incorrect?");
             }
-        };
+        });
+        // Responds with server information
+        app.get("/get/info/:hash", (req, res) -> getInfo(req, res));
+
+        app.get("*", (req, res) -> res.send("404 - Page not found"));
+
+        // Start server
+        app.listen(port);
+
         getLogger().info("Discraft server running on port: " + port);
         return app;
+
+    }
+
+    public void getInfo(Request req, Response res) {
+        /**
+         * 1 - Checks hash with salt + authkey 2 - Gets server info such as who is
+         * connected 3 - Parses this into a json object 4 - Then uses res.response to
+         * respond
+         */
+
+        if (checkHash("v8q4ESuRVFa5lgFfsR2s", req.getParam("hash"))) {
+            JSONObject responseObject = new JSONObject();
+            // Get server TPS
+            responseObject.put("tps", TPS.getTPS());
+            // Get server time alive
+            responseObject.put("uptime", TPS.getTimeAlive());
+            // Get Players
+            responseObject.put("players", getPlayersToJSON());
+            responseObject.put("maxplayers", Bukkit.getMaxPlayers());
+            // Gets server version
+            responseObject.put("version", Bukkit.getVersion());
+            // getLogger().info("Sending getinfo data...");
+            res.send(responseObject.toString());
+        } else {
+            res.send("401 - An authentication error has occured...");
+            getLogger().info(
+                    "An authentication error has occured attempting to getInfo. Please check your auth key is setup correctly.");
+        }
+    }
+
+    private JSONArray getPlayersToJSON() {
+        JSONArray playerArray = new JSONArray();
+        // Get all online players
+        Bukkit.getOnlinePlayers().forEach((player) -> {
+            JSONObject playerObject = new JSONObject();
+            playerObject.put("displayname", player.getDisplayName());
+            playerObject.put("uuid", player.getUniqueId().toString());
+            playerArray.put(playerObject);
+        });
+
+        if (playerArray.length() != 0) {
+            return playerArray;
+        } else {
+            return null;
+        }
 
     }
 

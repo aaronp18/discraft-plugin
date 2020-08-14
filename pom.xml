@@ -5,11 +5,11 @@
 
   <groupId>com.hourglassprograms.discraft</groupId>
   <artifactId>discraft</artifactId>
-  <version>1.0.13</version>
+  <version>1.0.14</version>
 
   <name>discraft</name>
   <!-- FIXME change it to the project's website -->
-  <url>http://www.hourglassprograms.com</url>
+  <url>http://discraft.hourglassprograms.com</url>
   <repositories>
     <!-- This adds the Spigot Maven repository to the build -->
     <repository>
@@ -55,6 +55,13 @@
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpclient</artifactId>
       <version>4.3.6</version>
+    </dependency>
+
+    <!-- JSON -->
+    <dependency>
+      <groupId>org.json</groupId>
+      <artifactId>json</artifactId>
+      <version>20180130</version>
     </dependency>
   </dependencies>
 
